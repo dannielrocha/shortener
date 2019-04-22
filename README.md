@@ -7,6 +7,6 @@ API REST Encurtador de URLs para o processo seletivo do Uol PagSeguro
 - IDE Eclipse Jee Photon
  
 # Guia de Configuração
-Criar as seguintes variáveis de ambiente para o Banco de Dados
-- ${SHORTENER_DB_USER}
-- ${SHORTENER_DB_PASSWORD} 
+Criar as seguintes variáveis de ambiente para o Banco de Dados:
+- SHORTENER_DB_USER
+- SHORTENER_DB_PASSWORD
