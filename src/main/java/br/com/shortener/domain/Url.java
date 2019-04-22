@@ -23,6 +23,9 @@ public class Url implements Serializable {
 	
 	@Column(name = "shortened", nullable = false)
 	private String shortened;
+	
+	@Column(name = "usage", nullable = true)
+	private Long urlUsage;
 
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_url")
 	@Id
@@ -49,5 +52,13 @@ public class Url implements Serializable {
 
 	public void setShortened(String shortened) {
 		this.shortened = shortened;
+	}
+	
+	public Long getUrlUsage() {
+		return urlUsage;
+	}
+
+	public void setUrlUsage(Long urlUsage) {
+		this.urlUsage = urlUsage;
 	}
 }

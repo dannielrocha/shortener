@@ -1,5 +1,6 @@
 package br.com.shortener.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +26,9 @@ public class UrlServiceImpl implements UrlService {
 	}
 
 	@Override
-	public Url create(Url url) {
+	public Url save(Url url) {
 		dao.save(url);		
 		return url;
-	}
-	
-	@Override
-	public void update(Url url) {
-		
 	}
 
 	@Override
@@ -43,5 +39,10 @@ public class UrlServiceImpl implements UrlService {
 	@Override
 	public Optional<Url> getByShortened(String shortened) {
 		return this.dao.getByShortened(shortened);
+	}
+
+	@Override
+	public List<Url> getAll() {
+		return this.dao.findAll();
 	}
 }

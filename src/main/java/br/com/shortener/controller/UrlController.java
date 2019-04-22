@@ -1,5 +1,7 @@
 package br.com.shortener.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +48,10 @@ public class UrlController {
 		
 		Url url = new Url();
 		url.setUrl(urlToCheck);
-		url = urlService.create(url);
+		url.setUrlUsage(Long.valueOf("0"));
+		url = urlService.save(url);
 		url.setShortened("shrt.io/" + ShortUrl.encode(url.getId().intValue()));
-		urlService.create(url);
+		urlService.save(url);
 		
 		return UrlDTO.from(url);
 	}
@@ -63,6 +66,8 @@ public class UrlController {
 			Optional<Url> optionaShortenedUrl = urlService.getByShortened("shrt.io/" + shortened);
 
 			if (optionaShortenedUrl.isPresent()) {
+				optionaShortenedUrl.get().setUrlUsage(optionaShortenedUrl.get().getUrlUsage() + 1);
+				urlService.save(optionaShortenedUrl.get());
 				return new ModelAndView("redirect:http://" + optionaShortenedUrl.get().getUrl());
 			}
 		} catch (Exception erro) {
@@ -71,5 +76,16 @@ public class UrlController {
 		}
 
 		return mv;
+	}
+	
+	@RequestMapping(path = "/url/stats", method = RequestMethod.GET, produces = "application/json; charset=UTF-8")
+	public @ResponseBody List<UrlDTO> getStats() {
+		List<UrlDTO> list = new ArrayList<>();
+		
+		for(Url url :urlService.getAll()) {
+			list.add(UrlDTO.from(url));
+		}
+		
+		return list;
 	}
 }

@@ -8,6 +8,8 @@ public class UrlDTO {
 	
 	private String shortened;
 	
+	private String usage;
+	
 	public void fill(Url url) {
 		url.setUrl(this.url);
 		url.setShortened(shortened);
@@ -18,6 +20,7 @@ public class UrlDTO {
 		
 		urlDTO.setUrl(url.getUrl());
 		urlDTO.setShortened(url.getShortened());
+		urlDTO.setUsage(url.getUrlUsage().toString());
 		
 		return urlDTO;
 	}
@@ -36,5 +39,13 @@ public class UrlDTO {
 
 	public void setShortened(String shortened) {
 		this.shortened = shortened;
+	}	
+
+	public String getUsage() {
+		return usage;
+	}
+
+	public void setUsage(String usage) {
+		this.usage = usage;
 	}
 }
